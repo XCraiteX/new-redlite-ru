@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+:root {
+  --background: #171717;
+  --foreground: #ffffff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: transparent;
+}
+
+/* Стилизуем ползунок */
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 0, 0, 0);
+  border-radius: 4px;
+}
+
+/* При наведении на ползунок */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 0, 0, 0);
+}
+
+
+html{
+  scroll-behavior: smooth;
+}
+
+::selection{
+  background-color: rgba(255, 0, 0, 0.2);
+  color: #fff;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Share Tech", "WDXL Lubrifont TC", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.glass{
+  background: rgba(255, 17, 17, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glow_button{
+  background: rgba(255, 17, 17, 0.1); 
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); 
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  transition: 0.2s;
+}
+
+.glow_button:hover{
+  border: 1px solid rgba(255, 0, 0, 0.2);
+  box-shadow: 0 0 6px 1px rgba(255, 0, 0, 0.5);
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+.nav-a{
+  display: flex;
+  align-items: center;
+  padding: 0.4rem 1.4rem;
+  gap: 6;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  transition: 0.2s;
+}
+
+.nav-a:hover{
+  box-shadow: 0 0 6px 1px rgba(255, 0, 0, 0.5);
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+.swap_btn:hover{
+  transform: rotateY(180);
+}
+
+.opacity_card {
+  background-color: rgba(251, 44, 54, 0.15);
+}
+
+
+.input_bg {
+  background-color: rgba(255, 109, 109, 0.2);
+}
+
+
+.arrow_btn{
+  transition: 0.2s;
+}
+
+.arrow_btn svg{
+  transition: 0.2s;
+}
+
+.arrow_btn:hover{
+  transform: translateX(6px);
+}
+
+.arrow_btn:hover svg {
+  transform: translateX(4px);
+}
