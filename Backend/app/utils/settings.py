@@ -1,0 +1,2 @@
+API_URL_PREFIX = '/api/'
+SESSION_KEY_LEN = 64
