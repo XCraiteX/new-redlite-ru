@@ -3,15 +3,19 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import { RiEmojiStickerFill } from "react-icons/ri";
 import { PiShieldWarningFill } from "react-icons/pi";
+import { FaUserAstronaut } from "react-icons/fa";
+import { IoTicket } from "react-icons/io5";
 
 interface AlertProps {
     message: string;
-    type?: 'success' | 'error';
+    color?: 'red' | 'green' | 'blue';
+    image?: 'smile' | 'error' | 'cosmo' | 'promo';
     duration?: number;
+    delay?: number;
     onClose?: () => void;
 }
 
-export default function SuccessAlert({ message, duration = 6000, type = 'error', onClose }: AlertProps) {
+export default function SuccessAlert({ message, duration = 4000, color = 'red', image = 'error' , delay = 0, onClose }: AlertProps) {
     const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
@@ -27,7 +31,7 @@ export default function SuccessAlert({ message, duration = 6000, type = 'error',
         return () => {
             if (timer) clearTimeout(timer);
         };
-    }, [message, type, duration]);
+    }, [message, duration]);
 
     const handleClose = () => {
         setIsVisible(false);
@@ -41,11 +45,21 @@ export default function SuccessAlert({ message, duration = 6000, type = 'error',
                     initial={{ opacity: 0, x: 40 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 20 }}
-                    transition={{ duration: 0.2 }}
-                    className={`fixed top-4 right-4 px-3 py-2 rounded-lg border ${type === 'success' ? "bg-green-500/20 border-green-500/50" : "bg-red-500/20 border-red-500/50"} shadow-lg`}
-                >
+                    transition={{ duration: 0.2, delay: delay }}
+                    className={`fixed top-4 right-4 px-3 py-2 rounded-lg border shadow-[0_4px_4px_1px] shadow-red-800/80
+                        ${
+                            color === 'green' ? "bg-green-500/20 border-green-500/50" : 
+                            color === 'red' ? "bg-red-500/20 border-red-500/50" :
+                            "bg-red-500/20 border-red-500/50"
+                        }`}>
+                            
                     <div className="flex items-center gap-2">
-                        {type === 'success' ? <RiEmojiStickerFill size={30} className='m-1'/> : <PiShieldWarningFill size={34}/>}
+                        {image === 'smile' ? <RiEmojiStickerFill size={30} className='m-1'/> : 
+                         image === 'error' ? <PiShieldWarningFill size={34}/> :
+                         image === 'cosmo' ? <FaUserAstronaut size={34} className='p-1'/> : 
+                         image === 'promo' ? <IoTicket/> :
+                         <FaUserAstronaut/>
+                        }
                         
                         <div className='flex flex-col'>                
                             <span className="text-white text-xl px-1">{message}</span>

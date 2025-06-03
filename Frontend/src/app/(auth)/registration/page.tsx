@@ -7,17 +7,23 @@ import { FaUserAstronaut } from "react-icons/fa6";
 import { IoMailUnread } from "react-icons/io5";
 import { RiShieldKeyholeFill } from "react-icons/ri";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { motion } from "motion/react";
-import Alert from "@/components/Alert";
+import Alert from "@/components/global/Alert";
 import { api } from "@/api/api";
+import { GlobalStores } from "@/stores/global";
 
 
 export default function Page() {
 
+    const { authorized } = GlobalStores.me()
+
     const [login, setLogin] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const router = useRouter()
 
     const [alertData, setAlertData] = useState<null | {message: string, type: "success" | "error"}>()
     const [active, setActive] = useState(false)
@@ -26,10 +32,20 @@ export default function Page() {
     const registration = async (e: React.FormEvent) => {
         e.preventDefault()
 
-        const result = await api.post('register', { login: login, email: email, password: password })
+        const result = await api.post('registration', { login: login, email: email, password: password })
 
         setAlertData({message: result.data.detail, type: result.data.status === 'OK' ? "success" : "error"})
         setActive(true)
+
+        if (result.data.status == 'OK'){
+            setTimeout(() => {
+                router.push('/login')
+            }, 4200)
+        }
+    }
+
+    if (authorized){
+        router.push('/')
     }
 
     return(
@@ -76,7 +92,7 @@ export default function Page() {
             {active && alertData && (
                 <Alert 
                     message={alertData.message} 
-                    type={alertData.type}
+                    color={alertData.type === 'error' ? 'red' :  'green'}
                     onClose={() => setTimeout(() => setActive(false), 400)}
                 />
             )}

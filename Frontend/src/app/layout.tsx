@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
 import "../css/globals.css";
-import Background from "@/components/Background";
+import Background from "@/components/global/Background";
 
 export const metadata: Metadata = {
   title: "REDLITE Clan x LITE.NET | Изменим мир вместе!",
   icons: 'favicon.ico',
   description: "REDLITE - клан, который готов менять мир. Создадим светлое будущее вместе!",
 };
-
-
 
 export default function RootLayout({
   children,

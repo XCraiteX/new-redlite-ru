@@ -7,15 +7,46 @@ import { IoMdSwap } from "react-icons/io";
 import { IoMailUnread } from "react-icons/io5";
 import { RiShieldKeyholeFill } from "react-icons/ri";
 import { motion } from 'motion/react';
+import { api } from "@/api/api";
+import Alert from "@/components/global/Alert";
+import { useRouter } from "next/navigation";
+import { GlobalStores } from "@/stores/global";
 
 export default function Page() {
+
+    const { authorized } = GlobalStores.me()
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const router = useRouter()
+
+    const [alertData, setAlertData] = useState<null | {message: string, type: "success" | "error"}>()
+    const [active, setActive] = useState(false)
+
+    const apiLogin = async (e: React.FormEvent) => {
+        e.preventDefault()
+
+        const result = await api.post('login', { email: email, password: password })
+
+        setAlertData({message: result.data.detail, type: result.data.status === 'OK' ? "success" : "error"})
+        setActive(true)
+
+        if (result.data.status == 'OK'){
+            setTimeout(() => {
+                router.push('/')
+            }, 4200)
+        }
+    }
+
+    if (authorized){
+        router.push('/')
+    }
+
+
     return(
         <section className="w-full h-screen flex justify-center items-center">
-            <form className="w-[260px] flex flex-col gap-1">
+            <form className="w-[260px] flex flex-col gap-1" onSubmit={apiLogin}>
                 <motion.div 
                     initial={{x: 20, opacity: 0}} animate={{x: 0, opacity: 1}} transition={{duration: 0.4, delay: 0.4}} 
                     className="flex justify-between items-center">
@@ -45,6 +76,14 @@ export default function Page() {
                     initial={{y: 10, opacity: 0}} animate={{y: 0, opacity: 1}} transition={{duration: 0.2, delay: 1.4}}
                     className="bg-red-400/20 rounded-sm text-2xl py-1 hover:shadow-[0_0_4px_1px] duration-[0.2s] mt-2">Войти</motion.button>
             </form>
+
+            {active && alertData && (
+                <Alert 
+                    message={alertData.message} 
+                    type={alertData.type}
+                    onClose={() => setTimeout(() => setActive(false), 400)}
+                />
+            )}
         </section>
     )
 }
