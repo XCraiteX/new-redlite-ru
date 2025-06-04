@@ -37,6 +37,8 @@ export default function Page() {
 
         const data = await api.post('login', { email: email, password: password })
 
+        console.log(data)
+
         setAlertData({message: data.detail, type: data.status === 'OK' ? "success" : "error"})
         setActive(true)
 
