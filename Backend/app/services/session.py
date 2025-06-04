@@ -8,5 +8,5 @@ async def generate_session_key():
 
     symbols = ascii_letters + digits
     
-    return ''.join([symbols[randint(0, len(symbols) - 1)] for x in range(SESSION_KEY_LEN - 1)])
+    return ''.join([symbols[randint(0, len(symbols) - 1)] for _ in range(SESSION_KEY_LEN - 1)])
 

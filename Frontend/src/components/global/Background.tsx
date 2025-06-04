@@ -1,4 +1,4 @@
-export default function Background() {
+export default function Background( { link }: { link: string} ) {
   return (
     <div className="fixed top-0 left-0 w-full h-full -z-10">
       <video
@@ -8,7 +8,7 @@ export default function Background() {
         playsInline
         className="absolute top-0 left-0 w-full h-full object-cover"
       >
-        <source src="videos/background.mp4" type="video/mp4" />
+        <source src={link} type="video/mp4" />
       </video>
       <div className="absolute top-0 left-0 w-full h-full bg-black/50" />
     </div>

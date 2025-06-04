@@ -1,57 +1,79 @@
 'use client'
-import Link from "next/link";
-import { useState } from "react";
+import "@/css/globals.css";
+import "@/css/header.css";
+import { useEffect, useState } from "react";
 
 import { IoMdSwap } from "react-icons/io";
 
 import { IoMailUnread } from "react-icons/io5";
 import { RiShieldKeyholeFill } from "react-icons/ri";
-import { motion } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import { api } from "@/api/api";
 import Alert from "@/components/global/Alert";
 import { useRouter } from "next/navigation";
+import { AlertScheme } from "@/schemas/global/alert.scheme";
 import { GlobalStores } from "@/stores/global";
+import { useAnimationStore } from "@/stores/animation";
 
 export default function Page() {
 
-    const { authorized } = GlobalStores.me()
+    const { fetch: fetchMe } = GlobalStores.me()
+    const { isPageVisible, setPageVisible } = useAnimationStore()
+
+    const router = useRouter()
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const router = useRouter()
-
-    const [alertData, setAlertData] = useState<null | {message: string, type: "success" | "error"}>()
+    const [alertData, setAlertData] = useState<null | AlertScheme>()
     const [active, setActive] = useState(false)
+
+    useEffect(() => {
+        setPageVisible(true)
+    }, [])
 
     const apiLogin = async (e: React.FormEvent) => {
         e.preventDefault()
 
-        const result = await api.post('login', { email: email, password: password })
+        const data = await api.post('login', { email: email, password: password })
 
-        setAlertData({message: result.data.detail, type: result.data.status === 'OK' ? "success" : "error"})
+        setAlertData({message: data.detail, type: data.status === 'OK' ? "success" : "error"})
         setActive(true)
 
-        if (result.data.status == 'OK'){
-            setTimeout(() => {
-                router.push('/')
-            }, 4200)
+        if (data.status == 'OK'){
+            setTimeout(() => {     
+                setPageVisible(false)
+                setTimeout(() => {
+                    router.push('/')
+                    setTimeout(() => {
+                        fetchMe()
+                    }, 400)
+                }, 600)
+            }, 3200)
         }
     }
 
-    if (authorized){
-        router.push('/')
+    const changeForm = async () => {
+        setPageVisible(false)
+        setTimeout(() => {
+            router.push('/registration')
+        }, 600)
     }
-
 
     return(
         <section className="w-full h-screen flex justify-center items-center">
-            <form className="w-[260px] flex flex-col gap-1" onSubmit={apiLogin}>
+            <AnimatePresence mode="wait">
+            { isPageVisible && <motion.form 
+                initial={{ opacity: 0, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                
+                className="w-[260px] flex flex-col gap-1" onSubmit={apiLogin}>
                 <motion.div 
                     initial={{x: 20, opacity: 0}} animate={{x: 0, opacity: 1}} transition={{duration: 0.4, delay: 0.4}} 
                     className="flex justify-between items-center">
                     <h1 className="text-4xl">Вход</h1>
-                    <Link href="/registration" className="p-2 border-1 border-white/0 hover:border-white duration-[0.2s] rounded-sm"><IoMdSwap size={30}/></Link>
+                    <button onClick={changeForm} className="p-2 border-1 border-white/0 hover:border-white duration-[0.2s] rounded-sm"><IoMdSwap size={30}/></button>
                 </motion.div>
                 
                 <motion.div initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 0.4, delay: 0.4}}>
@@ -75,12 +97,16 @@ export default function Page() {
                 <motion.button
                     initial={{y: 10, opacity: 0}} animate={{y: 0, opacity: 1}} transition={{duration: 0.2, delay: 1.4}}
                     className="bg-red-400/20 rounded-sm text-2xl py-1 hover:shadow-[0_0_4px_1px] duration-[0.2s] mt-2">Войти</motion.button>
-            </form>
+            </motion.form>
+            }
+            </AnimatePresence>
 
             {active && alertData && (
                 <Alert 
                     message={alertData.message} 
-                    type={alertData.type}
+                    color={alertData.type === 'error' ? 'red' :  'green'}
+                    image={alertData.type === 'error' ? 'error' :  'smile'}
+                    duration={3000}
                     onClose={() => setTimeout(() => setActive(false), 400)}
                 />
             )}

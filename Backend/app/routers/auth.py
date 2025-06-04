@@ -17,16 +17,18 @@ router = APIRouter()
 
 
 @router.get(API_URL_PREFIX + 'me')
-async def app_auth_me(request: Request):
+async def app_auth_me(request: Request, response: Response):
     
     session_key = request.cookies.get('session_key')
 
-    status, login, developer = await check_session_key(session_key)
-    
+    status, login= await check_session_key(session_key)
+
     if status:
-        return { 'status': 'OK', 'login': login, 'developer': developer }
+        return { 'status': 'OK', 'login': login }
     
-    raise HTTPException(status_code=401)
+    response.delete_cookie('session_key')
+
+    return { 'status': 'Error' }
 
 
 @router.post(API_URL_PREFIX + 'registration')

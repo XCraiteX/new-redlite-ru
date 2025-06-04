@@ -46,18 +46,19 @@ export default function SuccessAlert({ message, duration = 4000, color = 'red', 
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 20 }}
                     transition={{ duration: 0.2, delay: delay }}
-                    className={`fixed top-4 right-4 px-3 py-2 rounded-lg border shadow-[0_4px_4px_1px] shadow-red-800/80
+                    className={`fixed top-4 right-4 px-3 py-2 rounded-lg border shadow-[0_4px_4px_1px]
                         ${
-                            color === 'green' ? "bg-green-500/20 border-green-500/50" : 
-                            color === 'red' ? "bg-red-500/20 border-red-500/50" :
-                            "bg-red-500/20 border-red-500/50"
+                            color === 'green' ? "bg-green-500/20 border-green-500/50 shadow-green-800/80" : 
+                            color === 'red' ? "bg-red-500/20 border-red-500/50 shadow-red-800/80" :
+                            color === 'blue' ? "bg-blue-500/20 border-blue-500/50 shadow-blue-800/60" :
+                            "bg-red-500/20 border-red-500/50 shadow-red-800/80"
                         }`}>
                             
                     <div className="flex items-center gap-2">
                         {image === 'smile' ? <RiEmojiStickerFill size={30} className='m-1'/> : 
                          image === 'error' ? <PiShieldWarningFill size={34}/> :
                          image === 'cosmo' ? <FaUserAstronaut size={34} className='p-1'/> : 
-                         image === 'promo' ? <IoTicket/> :
+                         image === 'promo' ? <IoTicket size={34}/> :
                          <FaUserAstronaut/>
                         }
                         

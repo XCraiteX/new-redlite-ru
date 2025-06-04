@@ -16,10 +16,10 @@ async def app_get_community_data():
             telegram_div = soup.find('div', class_='tgme_page_extra')
             telegram_members = int(telegram_div.text.replace('subscribers', '').strip())
 
-        async with session.get(DISCORD_MEMBERS_INVITE) as response:
-            discord_data = await response.json()
+        # async with session.get(DISCORD_MEMBERS_INVITE) as response:
+        #     discord_data = await response.json()
 
     return {
-        'telegram': telegram_members,
-        'discord': discord_data['profile']['member_count']
+        'telegram': telegram_members
+        # 'discord': discord_data['profile']['member_count']
     }

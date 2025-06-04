@@ -1,0 +1,23 @@
+.glow_button{
+    background: rgba(255, 17, 17, 0.1); 
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); 
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  
+    display: flex;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    transition: 0.2s;
+}
+  
+.glow_button:hover{
+    border: 1px solid rgba(255, 0, 0, 0.2);
+    box-shadow: 0 0 6px 1px rgba(255, 0, 0, 0.5);
+    background-color: rgba(255, 0, 0, 0.1);
+}
+
+.swap_btn:hover{
+    transform: rotateY(180);
+}

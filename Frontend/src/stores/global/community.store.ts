@@ -1,9 +1,9 @@
 import { api } from '@/api/api'
+import { CommunityScheme } from '@/schemas/response/global/community.scheme'
 import { create } from 'zustand'
 
 type CommunityData = {
     telegram_members: number
-    discord_members: number
 }
 
 interface CommunityState {
@@ -14,10 +14,9 @@ interface CommunityState {
 export const useCommunityStore = create<CommunityState>()(set => ({
     data: undefined,
     fetch: async () => { 
-        const res = await api.get('community') 
+        const result: CommunityScheme = await api.get('community') 
         set(state => ({...state, data:{ 
-            telegram_members: res.data.telegram, 
-            discord_members: res.data.discord
+            telegram_members: result.telegram
         }}))
     }
   })
