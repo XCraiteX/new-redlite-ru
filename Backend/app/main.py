@@ -6,7 +6,8 @@ from data.db import create_tables
 
 from routers.auth import router as auth_router
 from routers.community import router as community_router
-from routers.profile import router as profule_router
+from routers.profile import router as profile_router
+from routers.license import router as license_router
 
 from utils.settings import API_URL_PREFIX
 
@@ -26,7 +27,8 @@ app.add_middleware(
 
 app.include_router(auth_router)
 app.include_router(community_router)
-app.include_router(profule_router)
+app.include_router(profile_router)
+app.include_router(license_router)
 
 @app.get(API_URL_PREFIX)
 async def app_api():

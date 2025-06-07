@@ -4,7 +4,7 @@ from fastapi import Request, Response
 from sqlalchemy import select
 
 from data.schemas import RegistrationProps, LoginProps
-from data.models import UsersTable
+from data.models import UsersTable, LicenseTable
 from data.db import db_session
 
 from services.hashing import hash_string, compare_passwords
@@ -43,9 +43,8 @@ async def app_register_user(props: RegistrationProps):
 
         hashed_password = await hash_string(props.password)
 
-        user = UsersTable(login=props.login, email=props.email, password=hashed_password, session=await generate_session_key())
-
-        db.add(user)
+        db.add(UsersTable(login=props.login, email=props.email, password=hashed_password, session=await generate_session_key()))
+        db.add(LicenseTable(email=props.email))
 
         await db.commit()
 
