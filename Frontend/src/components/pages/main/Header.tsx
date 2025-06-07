@@ -82,7 +82,7 @@ export default function Header() {
                     </div>
 
                     <div className="flex rounded-full items-center bg-[#ff1111]/10 backdrop-blur-[12px] border-1 border-white/10 ">
-                        <button onClick={() => handleNavigation('/#home')} className="flex rounded-full shadow-[#ff0000]/50 hover:shadow-[0_0_6px_1px]  hover:bg-[#ff0000]/10 nav-a">
+                        <button onClick={() => handleNavigation('/#home')} className="flex gap-2 rounded-full shadow-[#ff0000]/50 hover:shadow-[0_0_6px_1px]  hover:bg-[#ff0000]/10 nav-a">
                             <AiFillHome/>
                             Главная
                         </button>
