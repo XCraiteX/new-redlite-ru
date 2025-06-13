@@ -1,6 +1,6 @@
 import { FaProjectDiagram } from "react-icons/fa";
 import { motion } from 'motion/react';
-import Project from "../Project";
+import Project from "../../global/Project";
 
 
 export default function Projects() { 

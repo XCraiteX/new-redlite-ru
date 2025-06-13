@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react"
 import { GlobalStores } from "@/stores/global"
-import Header from "@/components/pages/main/Header"
+import Header from "@/components/global/Header"
 import { FaCode } from "react-icons/fa";
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react";

@@ -1,15 +1,15 @@
 'use client'
 import { useEffect } from "react";
-import Projects from "@/components/pages/main/sections/Projects";
-import Main from "@/components/pages/main/sections/Main";
-import About from "@/components/pages/main/sections/About";
-import Header from "@/components/pages/main/Header";
+import Projects from "@/components/pages/main/home/sections/Projects";
+import Main from "@/components/pages/main/home/sections/Main";
+import About from "@/components/pages/main/home/sections/About";
+import Header from "@/components/global/Header";
 import { AnimatePresence, motion, useAnimate } from "motion/react";
 import { GlobalStores } from "@/stores/global";
-import Socials from "@/components/pages/main/sections/Socials";
+import Socials from "@/components/pages/main/home/sections/Socials";
 import Alert from "@/components/global/Alert";
 import { useAnimationStore } from "@/stores/animation";
-import Codes from "@/components/pages/main/sections/Codes";
+import Codes from "@/components/pages/main/home/sections/Codes";
 
 export default function Home() {
   const { data, fetch: fetchCommunity } = GlobalStores.community()
