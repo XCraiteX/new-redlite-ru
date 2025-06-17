@@ -21,15 +21,15 @@ async def check_registration(login: str, email: str) -> tuple[bool, str]:
     return False, ''
 
 
-async def check_session_key(session: str) -> tuple[bool, str]:
+async def check_session_key(session: str) -> tuple[bool, int, str]:
 
     async with db_session() as db:
         query = await db.execute(select(UsersTable).where(UsersTable.session == session))
         result = query.scalars().first() 
 
         if not result:
-            return False, ''
+            return False, 0, ''
 
-        return True, result.login
+        return True, result.id, result.login
         
     

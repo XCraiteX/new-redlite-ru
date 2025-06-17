@@ -10,7 +10,7 @@ export default function Background( { link }: { link: string} ) {
       >
         <source src={link} type="video/mp4" />
       </video>
-      <div className="absolute top-0 left-0 w-full h-full bg-black/36" />
+      <div className="absolute top-0 left-0 w-full h-full bg-black/32" />
     </div>
   );
 };

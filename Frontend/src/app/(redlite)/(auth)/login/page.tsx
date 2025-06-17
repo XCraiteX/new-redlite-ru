@@ -1,5 +1,5 @@
 'use client'
-import "@/css/globals.scss";
+import "@/css/globals.css";
 import "@/css/header.css";
 import { useEffect, useState } from "react";
 
@@ -65,7 +65,7 @@ export default function Page() {
     return(
         <section className="w-full h-screen flex justify-center items-center">
             <AnimatePresence mode="wait">
-            { isPageVisible && <motion.form 
+            { isPageVisible && <motion.div 
                 initial={{ opacity: 0, y: 0 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
@@ -98,8 +98,10 @@ export default function Page() {
 
                 <motion.button
                     initial={{y: 10, opacity: 0}} animate={{y: 0, opacity: 1}} transition={{duration: 0.2, delay: 1.4}}
-                    className="bg-red-400/20 rounded-sm text-2xl py-1 hover:shadow-[0_0_4px_1px] duration-[0.2s] mt-2">Войти</motion.button>
-            </motion.form>
+                    className="bg-red-400/20 rounded-sm text-2xl py-1 hover:shadow-[0_0_4px_1px] duration-[0.2s] mt-2"
+                    onClick={apiLogin}>Войти</motion.button>
+                    
+            </motion.div>
             }
             </AnimatePresence>
 

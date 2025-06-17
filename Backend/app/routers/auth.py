@@ -21,14 +21,26 @@ async def app_auth_me(request: Request, response: Response):
     
     session_key = request.cookies.get('session_key')
 
-    status, login= await check_session_key(session_key)
+    if session_key == "" or session_key == None:
+        session_key = request.headers.get('Authorization')
+
+    if not session_key:
+        raise HTTPException(status_code=401)
+
+    status, user_id, login = await check_session_key(session_key)
 
     if status:
-        return { 'status': 'OK', 'login': login }
+        return { 
+            'status': 'OK', 
+            'user': { 
+                'id': user_id,
+                'login': login 
+            } 
+        }
     
     response.delete_cookie('session_key')
 
-    return { 'status': 'Error' }
+    return { 'status': 'Error', 'detail': 'Неверный ключ сессии!' }
 
 
 @router.post(API_URL_PREFIX + 'registration')
@@ -43,8 +55,10 @@ async def app_register_user(props: RegistrationProps):
 
         hashed_password = await hash_string(props.password)
 
-        db.add(UsersTable(login=props.login, email=props.email, password=hashed_password, session=await generate_session_key()))
-        db.add(LicenseTable(email=props.email))
+        user_obj = UsersTable(login=props.login, email=props.email, password=hashed_password, session=await generate_session_key())
+        
+        db.add(user_obj)
+        db.add(LicenseTable(id=user_obj.id))
 
         await db.commit()
 

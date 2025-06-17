@@ -1,6 +1,5 @@
 'use client'
 
-import Link from "next/link"
 import { motion, AnimatePresence } from "motion/react"
 import { GlobalStores } from "@/stores/global"
 import { useRouter, usePathname } from "next/navigation"
@@ -13,7 +12,7 @@ import { GiStarSattelites } from "react-icons/gi"
 import { MdMarkEmailUnread } from "react-icons/md"
 import { RiHeart2Fill, RiCoupon2Fill } from "react-icons/ri"
 import Divider from "@/components/global/Divider"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 
 export default function Header() {
 
@@ -29,7 +28,6 @@ export default function Header() {
         }
     }, [authorized, fetchMe])
 
-    // const [isVisible, setIsVisible] = useState(true)
 
     useEffect(() => {
         const handleHash = () => {
@@ -55,7 +53,6 @@ export default function Header() {
         const targetBasePath = getBasePath(path);
 
         if (currentBasePath !== targetBasePath) { 
-            // setIsVisible(false);
             setPageVisible(false);
 
             setTimeout(() => {
@@ -120,7 +117,7 @@ export default function Header() {
                         {authorized ? (
                             <button 
                                 onClick={() => handleNavigation(`/profile/${login}`)}
-                                className="border-1 border-white/10 nav-a rounded-full bg-[#ff0000]/10 shadow-[#ff0000]/50 hover:shadow-[0_0_6px_1px] hover:bg-[#ff0000]/16 nav-a gap-2"
+                                className="border-1 border-white/10 nav-a rounded-full backdrop-blur-[12px] bg-[#ff0000]/10 shadow-[#ff0000]/50 hover:shadow-[0_0_6px_1px] hover:bg-[#ff0000]/16 nav-a gap-2"
                             >
                                 <FaRegUserCircle/>
                                 <p>{login}</p>
@@ -128,7 +125,7 @@ export default function Header() {
                         ) : (
                             <button 
                                 onClick={() => handleNavigation('/login')}
-                                className="border-1 border-white/10 nav-a rounded-full bg-[#ff0000]/10 shadow-[#ff0000]/50 hover:shadow-[0_0_6px_1px] hover:bg-[#ff0000]/16 nav-a gap-2"
+                                className="border-1 border-white/10 nav-a rounded-full backdrop-blur-[12px] bg-[#ff0000]/10 shadow-[#ff0000]/50 hover:shadow-[0_0_6px_1px] hover:bg-[#ff0000]/16 nav-a gap-2"
                             >
                                 <FaUserAstronaut/>
                                 <span id="header_login">Login</span>

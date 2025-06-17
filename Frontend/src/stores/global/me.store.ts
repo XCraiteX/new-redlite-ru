@@ -18,7 +18,7 @@ export const useMeStore = create<MeState>()(set => ({
         const data = await api.me()
 
         if (data.status == 'OK'){
-          return set(state => ({...state, authorized: true, login: data.login, developer: data.developer, created: data.created}))
+          return set(state => ({...state, authorized: true, login: data.user.login, developer: data.user.developer, created: data.user.created}))
         } else {
           return set(state => ({...state, authorized: false}))
         }

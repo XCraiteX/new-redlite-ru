@@ -121,7 +121,7 @@ export default function Header() {
                         {authorized ? (
                             <button 
                                 onClick={() => handleNavigation(`/profile/${login}`)}
-                                className="border-1 border-white/10 nav-a rounded-full bg-blue-500/10 shadow-blue-500/50 hover:shadow-[0_0_6px_1px] hover:bg-blue-500/16 nav-a gap-2"
+                                className="border-1 border-white/10 nav-a rounded-full backdrop-blur-[12px] bg-blue-500/10 shadow-blue-500/50 hover:shadow-[0_0_6px_1px] hover:bg-blue-500/16 nav-a gap-2"
                             >
                                 <FaRegUserCircle/>
                                 <p>{login}</p>
@@ -129,7 +129,7 @@ export default function Header() {
                         ) : (
                             <button 
                                 onClick={() => handleNavigation('/login')}
-                                className="border-1 border-white/10 nav-a rounded-full bg-blue-500/10 shadow-blue-500/50 hover:shadow-[0_0_6px_1px] hover:bg-blue-500/16 nav-a gap-2"
+                                className="border-1 border-white/10 nav-a rounded-full backdrop-blur-[12px] bg-blue-500/10 shadow-blue-500/50 hover:shadow-[0_0_6px_1px] hover:bg-blue-500/16 nav-a gap-2"
                             >
                                 <FaUserAstronaut/>
                                 <span id="header_login">Login</span>

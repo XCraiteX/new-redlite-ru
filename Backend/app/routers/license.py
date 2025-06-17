@@ -11,27 +11,27 @@ from utils.settings import API_URL_PREFIX
 router = APIRouter()
 
 @router.get(API_URL_PREFIX + 'license/check')
-async def app_check_license(project: str, email: str):
+async def app_check_license(project: str, user_id: str):
     
     async with db_session() as db:
 
         # Проверяем есть ли строка
-        fetch = await db.execute(select(LicenseTable).where(LicenseTable.email == email))
+        fetch = await db.execute(select(LicenseTable).where(LicenseTable.id == user_id))
         result = fetch.scalars().first()
 
         # Если есть извлекаем значение конкретного проекта
         if result:
-            fetch = await db.execute(select(getattr(LicenseTable, project)).where(LicenseTable.email == email))
+            fetch = await db.execute(select(getattr(LicenseTable, project)).where(LicenseTable.id == user_id))
             license_value = fetch.scalar()
 
         # если нет, проверяем существует ли аккаунт
         else:
-            fetch = await db.execute(select(UsersTable).where(UsersTable.email == email))
+            fetch = await db.execute(select(UsersTable).where(UsersTable.id == user_id))
             result = fetch.scalars().first()
 
             # Если аккаунт существует, создаём для него запись лицензии
             if result:
-                db.add(LicenseTable(email=email))
+                db.add(LicenseTable(id=user_id))
                 await db.commit()
 
             else:

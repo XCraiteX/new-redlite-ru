@@ -43,16 +43,16 @@ body {
 
 .arrow_btn{
   transition: 0.2s;
+}
 
-  svg{
-    transition: 0.2s;
-  }
+.arrow_btn svg{
+  transition: 0.2s;
 }
 
 .arrow_btn:hover{
   transform: translateX(6px);
+}
 
-  svg {
-    transform: translateX(4px);
-  }
+.arrow_btn:hover svg {
+  transform: translateX(4px);
 }

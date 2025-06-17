@@ -1,5 +1,5 @@
 'use client'
-import "@/css/globals.scss";
+import "@/css/globals.css";
 import "@/css/header.css";
 import { IoMdSwap } from "react-icons/io";
 
@@ -61,7 +61,7 @@ export default function Page() {
     return(
         <section className="w-full h-screen flex justify-center items-center">
             <AnimatePresence mode="wait">
-            { isPageVisible && <motion.form 
+            { isPageVisible && <motion.div 
                 initial={{ opacity: 0, y: 0 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
@@ -103,8 +103,9 @@ export default function Page() {
                 <motion.button 
                     initial={{y: 10, opacity: 0}} animate={{y: 0, opacity: 1}} transition={{duration: 0.2, delay: 1.8}} 
                     className="bg-red-400/20 rounded-sm text-2xl py-1 hover:shadow-[0_0_4px_1px] duration-[0.2s] mt-2"
+                    onClick={registration}
                     >Зарегистрироваться</motion.button>
-            </motion.form>
+            </motion.div>
             }
             </AnimatePresence>
 
