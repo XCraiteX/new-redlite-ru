@@ -23,3 +23,4 @@ class LicenseTable(Base):
 
     id: Mapped[Integer] = mapped_column(Integer, primary_key=True)
     orbit: Mapped[Boolean] = mapped_column(Boolean, default=False)
+    orbit_hwid: Mapped[String] = mapped_column(String, default='')

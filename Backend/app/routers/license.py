@@ -3,6 +3,7 @@ from sqlalchemy import select, text
 
 from data.db import db_session
 from data.models import LicenseTable, UsersTable
+from data.schemas import LicenseInitScheme
 
 from services.accounts import check_registration
 
@@ -10,40 +11,65 @@ from utils.settings import API_URL_PREFIX
 
 router = APIRouter()
 
-@router.get(API_URL_PREFIX + 'license/check')
-async def app_check_license(project: str, user_id: str):
-    
+@router.get(API_URL_PREFIX + 'orbit/license/check/{hwid}')
+async def app_check_orbit_license(hwid: str):
+
     async with db_session() as db:
 
-        # Проверяем есть ли строка
-        fetch = await db.execute(select(LicenseTable).where(LicenseTable.id == user_id))
+        fetch = await db.execute(select(LicenseTable.orbit).where(LicenseTable.orbit_hwid == hwid))
         result = fetch.scalars().first()
 
-        # Если есть извлекаем значение конкретного проекта
         if result:
-            fetch = await db.execute(select(getattr(LicenseTable, project)).where(LicenseTable.id == user_id))
-            license_value = fetch.scalar()
+            return True
+        
+        return False
 
-        # если нет, проверяем существует ли аккаунт
-        else:
-            fetch = await db.execute(select(UsersTable).where(UsersTable.id == user_id))
-            result = fetch.scalars().first()
 
-            # Если аккаунт существует, создаём для него запись лицензии
-            if result:
-                db.add(LicenseTable(id=user_id))
+@router.post(API_URL_PREFIX + 'orbit/license/init')
+async def app_init_orbit_license(data: LicenseInitScheme):
+
+    async with db_session() as db:
+
+        # Проверяем существует ли аккаунт
+        fetch = await db.execute(select(UsersTable).where(UsersTable.email == data.email))
+        user = fetch.scalars().first()
+
+        if not user:
+            return {
+                'status': 'Error',
+                'detail': 'Аккаунта не существует!'
+            }
+        
+        # Берём строку целевого юзера
+        fetch = await db.execute(select(LicenseTable).where(LicenseTable.id == user.id))
+        license_object = fetch.scalars().first()
+
+        # Если лицензия есть
+        if license_object.orbit:
+
+            # Если HWID пустой
+            if license_object.orbit_hwid.replace(' ', '') == '':
+                license_object.orbit_hwid = data.hwid
+
                 await db.commit()
 
-            else:
                 return {
-                    "status": "Error",
-                    "detail": "Аккаунта не существует!"
+                    'status': 'OK',
+                    'detail': 'Айди устройства успешно привязано к аккаунту!'
+                }
+
+            
+            # Если HWID не совпадают
+            if license_object.orbit_hwid != data.hwid:
+                return {
+                    'status': 'Error',
+                    'detail': 'К аккаунту привязан другой айди устройства!'
                 }
             
-            license_value = False
 
         return {
-            'status': 'OK',
-            'license': license_value
+            'status': 'Error',
+            'detail': 'У вас нет лицензии Orbit!'
         }
-    
+        
+

@@ -9,3 +9,7 @@ class LoginProps(BaseModel):
     email: EmailStr
     password: str 
 
+class LicenseInitScheme(BaseModel):
+    email: EmailStr
+    password: str
+    hwid: str
