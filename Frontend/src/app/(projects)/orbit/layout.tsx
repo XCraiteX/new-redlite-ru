@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <Background link="/videos/orbit/background.mp4"/>
+      <Background link="/videos/orbit/background.mp4" opacity={32}/>
       {children}
     </>
   );

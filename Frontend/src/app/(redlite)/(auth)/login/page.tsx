@@ -51,7 +51,7 @@ export default function Page() {
                         fetchMe()
                     }, 400)
                 }, 600)
-            }, 3200)
+            }, 1600)
         }
     }
 

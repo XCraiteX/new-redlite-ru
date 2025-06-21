@@ -11,6 +11,7 @@ import { FaRegUserCircle, FaCoins } from "react-icons/fa"
 import { FaUserAstronaut } from "react-icons/fa6"
 import { GiStarSattelites } from "react-icons/gi"
 import { RiHeart2Fill, RiVoiceprintLine } from "react-icons/ri"
+import { RiSettingsFill } from "react-icons/ri";
 import Divider from "@/components/global/Divider"
 import { useEffect } from "react"
 import { TbBrandReact } from "react-icons/tb"
@@ -82,7 +83,7 @@ export default function Header() {
                         <h1>ORBIT VERSE</h1>
                     </button>
 
-                    <div className="flex gap-2 rounded-full items-center bg-blue-500/10 backdrop-blur-[12px] border-1 border-white/10 ">
+                    <div className="flex rounded-full items-center bg-blue-500/10 backdrop-blur-[12px] border-1 border-white/10 ">
                         <Link href='/orbit/#home' className="flex gap-2 rounded-full shadow-blue-500/50 hover:shadow-[0_0_6px_1px] hover:bg-blue-500/10 nav-a">
                             <AiFillHome/>
                             Главная
@@ -100,6 +101,13 @@ export default function Header() {
                         <Link href='/orbit/#features' className="flex gap-2 rounded-full shadow-blue-500/50 hover:shadow-[0_0_6px_1px]  hover:bg-blue-500/10 nav-a">
                             <TbBrandReact />
                             Функции
+                        </Link>
+
+                        <Divider/>
+
+                        <Link href='/orbit/#setup' className="flex gap-2 rounded-full shadow-blue-500/50 hover:shadow-[0_0_6px_1px]  hover:bg-blue-500/10 nav-a">
+                            <RiSettingsFill/>
+                            Настройка
                         </Link>
 
                         <Divider/>

@@ -1,4 +1,4 @@
-export default function Background( { link }: { link: string} ) {
+export default function Background( { link, opacity }: { link: string, opacity: number } ) {
   return (
     <div className="fixed top-0 left-0 w-full h-full -z-10">
       <video
@@ -10,7 +10,7 @@ export default function Background( { link }: { link: string} ) {
       >
         <source src={link} type="video/mp4" />
       </video>
-      <div className="absolute top-0 left-0 w-full h-full bg-black/32" />
+      <div className={`absolute top-0 left-0 w-full h-full bg-black/${opacity}`} />
     </div>
   );
 };

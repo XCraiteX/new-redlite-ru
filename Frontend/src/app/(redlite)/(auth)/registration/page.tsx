@@ -47,7 +47,7 @@ export default function Page() {
                 setTimeout(() => {
                     router.push('/login')
                 }, 600)
-            }, 3200)
+            }, 1600)
         }
     }
 
