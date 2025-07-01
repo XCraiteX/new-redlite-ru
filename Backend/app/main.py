@@ -14,7 +14,8 @@ from utils.settings import API_URL_PREFIX
 app = FastAPI()
 
 origins = [
-    "*", "localhost:3000"
+    "http://localhost:3000",
+    "http://localhost:3001"
 ]
 
 app.add_middleware(
