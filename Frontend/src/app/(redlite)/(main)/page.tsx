@@ -1,15 +1,18 @@
 'use client'
 import { useEffect } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { GlobalStores } from "@/stores/global";
+import { useAnimationStore } from "@/stores/animation";
+
 import Projects from "@/components/pages/main/home/sections/Projects";
 import Main from "@/components/pages/main/home/sections/Main";
 import About from "@/components/pages/main/home/sections/About";
 import Header from "@/components/global/Header";
-import { AnimatePresence, motion, useAnimate } from "motion/react";
-import { GlobalStores } from "@/stores/global";
 import Socials from "@/components/pages/main/home/sections/Socials";
 import Alert from "@/components/global/Alert";
-import { useAnimationStore } from "@/stores/animation";
 import Codes from "@/components/pages/main/home/sections/Codes";
+
+import "@/css/adaptation/main.css"
 
 export default function Home() {
   const { data, fetch: fetchCommunity } = GlobalStores.community()
@@ -26,7 +29,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main className="h-screen w-screen snap-x snap-mandatory flex overflow-x-hidden scroll-smooth">
+      <main className="h-screen w-screen snap-x snap-mandatory flex overflow-x-hidden scroll-smooth" id="main-page-section">
         <AnimatePresence mode="wait">
           {isPageVisible && (
             <motion.div
@@ -35,6 +38,7 @@ export default function Home() {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="flex flex-row w-full"
+              id="main-page-container"
             >
               <Main/>
               <About/>

@@ -2,13 +2,14 @@
 import {motion} from 'motion/react'
 import Link from 'next/link'
 import { MdOutlineDoubleArrow } from 'react-icons/md'
+import "@/css/adaptation/main.css"
 
 export default function Main() {
     return(
     <section id="home" className="h-screen w-screen flex-shrink-0 snap-center flex items-center justify-center overflow-hidden">
-        <div className="flex gap-12">
-            <motion.img initial={{y: 10, opacity: 0}} whileInView={{y: 0, opacity: 1}} transition={{duration: 0.4, delay: 0.4}} src='/global/logo.png' width='280px'/>
-            <div className="flex flex-col justify-center">
+        <div className="flex gap-12" id='main-logo-container'>
+            <motion.img initial={{y: 10, opacity: 0}} whileInView={{y: 0, opacity: 1}} transition={{duration: 0.4, delay: 0.4}} src='/global/logo.png' width='280px' id='main-section-logo'/>
+            <div className="flex flex-col justify-center" id="main-to-about">
                 <motion.h1 initial={{x: 10, opacity: 0}} whileInView={{x: 0, opacity: 1}} transition={{duration: 0.6, delay: 0.8}} className="text-8xl">REDLITE</motion.h1>
                 <motion.h2 initial={{x: 10, opacity: 0}} whileInView={{x: 0, opacity: 1}} transition={{duration: 0.6, delay: 1.2}} className="text-6xl">CLAN</motion.h2>
                 <motion.div initial={{x: 10, opacity: 0}} whileInView={{x: 0, opacity: 1}} transition={{duration: 0.6, delay: 1.6}}>

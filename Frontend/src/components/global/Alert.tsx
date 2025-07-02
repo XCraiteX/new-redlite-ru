@@ -46,7 +46,7 @@ export default function SuccessAlert({ message, duration = 4000, color = 'red', 
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 20 }}
                     transition={{ duration: 0.2, delay: delay }}
-                    className={`fixed top-4 right-4 px-3 py-2 rounded-lg border shadow-[0_4px_4px_1px]
+                    className={`fixed alert px-3 py-2 rounded-lg border shadow-[0_4px_4px_1px]
                         ${
                             color === 'green' ? "bg-green-500/20 border-green-500/50 shadow-green-800/80" : 
                             color === 'red' ? "bg-red-500/20 border-red-500/50 shadow-red-800/80" :

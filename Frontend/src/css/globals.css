@@ -16,7 +16,7 @@
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 0px;
   background: transparent;
 }
 
@@ -55,4 +55,36 @@ body {
 
 .arrow_btn:hover svg {
   transform: translateX(4px);
+}
+
+
+
+/* ADAPTATION */
+@media(max-width: 765px){
+  .headers-text{
+    font-size: 40px;
+  }
+}
+
+
+/* ALERT */
+@media(min-width: 1506px){
+  .alert{
+    top: 10px;
+    right: 20px;
+  }
+}
+
+@media(max-width: 1505px) and (min-width: 701px){
+  .alert{
+    top: 70px;
+    right: 20px;
+  }
+}
+
+@media(max-width: 700px){
+  .alert{
+    bottom: 20px;
+    right: 20px;
+  }
 }

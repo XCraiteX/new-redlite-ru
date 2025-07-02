@@ -1,0 +1,19 @@
+@media (max-width: 1000px) and (min-width: 802px){
+    #header_logo {
+        display: none;
+    }
+    .nav-a{
+        padding: 0.4rem 1.4rem;
+    }
+}
+
+@media(max-width: 801px) and (min-width: 200px){
+    .header-links{
+        display: none;
+    }
+}
+
+
+@media(max-width: 782px){
+
+}

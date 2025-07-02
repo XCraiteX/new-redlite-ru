@@ -1,6 +1,6 @@
 .poem {
 	background-color: rgba(#ff0000, 0.08);
-	padding: 16px;
+	padding: 16px 4px;
 	border-radius: 10px;
 	border-bottom: 1px solid #ff003d;
 	border-top: 1px solid #ff003d;
@@ -62,10 +62,10 @@
 @media (max-width: 462px) {
 	.poem {
 		h2 {
-			font-size: 1.4em;
+			font-size: 30px;
 		}
 		h3 {
-			font-size: 0.85em;
+			font-size: 18px;
 		}
 	}
 }

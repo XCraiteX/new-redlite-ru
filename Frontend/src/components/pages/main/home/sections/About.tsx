@@ -6,17 +6,17 @@ export default function About() {
     const words = ["REDLITE", "-", "Маленький", "клан", "программистов.", "Команда", "людей,", "желающих", "сделать", "что-то", " хорошее", "для", "этого", "мира.", "Мы", "занимаемся", "устранением", "Telegram-каналов,", "связанных", "с", "живодёрством,", " мошенничеством", "и", "терроризмом,", "проводим", "DDoS-атаки", "на", "мошеннические", "сайты,", "разрабатываем", "полезное", "программное", "обеспечение,", "создаём", "Telegram", "и", "Discord", "ботов", "и", "разрабатываем", "игры."]
 
     return(
-        <section id="about" className="h-screen w-screen flex-shrink-0 snap-center flex items-center justify-center flex-col overflow-hidden">
+        <section id="about" className="min-h-screen w-screen flex-shrink-0 snap-center flex items-center justify-center flex-col overflow-hidden">
             <motion.h2
                 initial={{x: 10, opacity: 0}}
                 whileInView={{x: 0, opacity: 1}}
                 transition={{duration: 0.4, delay: 0.4}}
-                className="text-5xl font-bold flex gap-2">
+                className="text-5xl font-bold flex gap-2 headers-text">
                     <RiHeart2Fill/>
                     О нас
             </motion.h2>
 
-            <div className="p-8 rounded-2xl min-w-[32%] max-w-[42%] border-red-500">
+            <div className="p-8 rounded-2xl min-w-[32%] max-w-[42%] border-red-500" id="main-about-text">
                 
                 <motion.div className="text-2xl text-[1.6em]">
                     {words.map((word, index) => (
