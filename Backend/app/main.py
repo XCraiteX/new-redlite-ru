@@ -2,14 +2,13 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
-from data.db import create_tables
-
 from routers.auth import router as auth_router
 from routers.community import router as community_router
 from routers.profile import router as profile_router
 from routers.license import router as license_router
 
 from utils.settings import API_URL_PREFIX
+from data.db import create_tables
 
 app = FastAPI()
 

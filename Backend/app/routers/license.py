@@ -1,11 +1,9 @@
 from fastapi.routing import APIRouter
-from sqlalchemy import select, text
+from sqlalchemy import select
 
 from data.db import db_session
 from data.models import LicenseTable, UsersTable
 from data.schemas import LicenseInitScheme
-
-from services.accounts import check_registration
 
 from utils.settings import API_URL_PREFIX
 
