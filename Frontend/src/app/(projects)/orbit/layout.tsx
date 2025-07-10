@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
+
+// CSS
 import '@/css/header.css'
+
+// COMPONENTS
 import Background from "@/components/global/Background";
+
 
 export const metadata: Metadata = {
   title: "Orbit Verse | Умный голосовой асистент!",

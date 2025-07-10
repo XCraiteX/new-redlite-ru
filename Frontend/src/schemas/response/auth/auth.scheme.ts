@@ -1,4 +1,4 @@
-type UserScheme = {
+export type UserScheme = {
     login: string
     developer: boolean
     created: string

@@ -1,29 +1,38 @@
 'use client'
 
-import { motion } from "motion/react"
-import { GlobalStores } from "@/stores/global"
-import Header from "@/components/global/Header"
-import { FaCode } from "react-icons/fa";
-import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react";
-import { useParams } from 'next/navigation'
-import { ProfileScheme } from "@/schemas/response/global/pofile.scheme";
-import { api } from "@/api/api";
-import { useAnimationStore } from "@/stores/animation";
+// MODULES
 import { AnimatePresence } from "motion/react";
+import { motion } from "motion/react"
+import { api } from "@/api/api"
+
+// STORES
+import { GlobalStores } from "@/stores/global"
+import { useAnimationStore } from "@/stores/animation"
+
+// COMPONENTS & MODULES
+import Header from "@/components/global/Header"
+import { ProfileScheme } from "@/schemas/response/global/pofile.scheme";
+import { navigationDurationSeconds } from "@/animation/controls";
+
+// HOOKS
+import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
+import { useParams } from 'next/navigation'
+
+// ICONS
+import { FaCode } from "react-icons/fa"
+
 
 export default function Profile() {
+
     const [profileData, setProfileData] = useState<null | ProfileScheme>(null);
     const { isPageVisible, setPageVisible } = useAnimationStore()
 
     const params = useParams()
-    const login = params.username
 
     useEffect(() => {
         setPageVisible(true)
-        if (profileData == null){
-            api.get(`profile/${login}`).then(data => setProfileData(data))
-        }
+        if (profileData == null) api.get(`profile/${params.username}`).then(data => setProfileData(data))
     }, [])
 
     if (profileData == null){
@@ -42,7 +51,7 @@ export default function Profile() {
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.6, ease: "easeOut" }}>
+                            transition={{ duration: navigationDurationSeconds, ease: "easeOut" }}>
 
                             <div className="rounded-2xl overflow-hidden">
                                 <div className="w-full mt-32 relative">

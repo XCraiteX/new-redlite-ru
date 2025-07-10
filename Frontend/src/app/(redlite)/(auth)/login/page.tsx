@@ -1,43 +1,51 @@
 'use client'
 import "@/css/globals.css";
 import "@/css/header.css";
-import { useEffect, useState } from "react";
 
-import { IoMdSwap } from "react-icons/io";
-
-import { IoMailUnread } from "react-icons/io5";
-import { RiShieldKeyholeFill } from "react-icons/ri";
+// MODULES
 import { AnimatePresence, motion } from 'motion/react';
 import { api } from "@/api/api";
+
+// COMPONENTS
 import Alert from "@/components/global/Alert";
+
+// HOOKS
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { AlertScheme } from "@/schemas/global/alert.scheme";
+
+// STORES & SCHEMES
 import { GlobalStores } from "@/stores/global";
-import { useAnimationStore } from "@/stores/animation";
+import { AlertScheme } from "@/schemas/global/alert.scheme";
+import { navigationDurationMiliseconds } from "@/animation/controls";
+
+// ICONS
+import { IoMdSwap } from "react-icons/io";
+import { IoMailUnread } from "react-icons/io5";
+import { RiShieldKeyholeFill } from "react-icons/ri";
+
 
 export default function Page() {
 
-    const { fetch: fetchMe } = GlobalStores.me()
-    const { isPageVisible, setPageVisible } = useAnimationStore()
+    const { isPageVisible, setPageVisible } = GlobalStores.animation()
 
     const router = useRouter()
 
+    // Данные форм
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const [alertData, setAlertData] = useState<null | AlertScheme>()
     const [active, setActive] = useState(false)
+    
 
-    useEffect(() => {
-        setPageVisible(true)
-    }, [])
+    // Включение страницы по дефолту
+    useEffect(() => { setPageVisible(true) }, [])
 
+    // Вход в аккаунт
     const apiLogin = async (e: React.FormEvent) => {
         e.preventDefault()
 
         const data = await api.post('login', { email: email, password: password })
-
-        console.log(data)
 
         setAlertData({message: data.detail, type: data.status === 'OK' ? "success" : "error"})
         setActive(true)
@@ -45,21 +53,14 @@ export default function Page() {
         if (data.status == 'OK'){
             setTimeout(() => {     
                 setPageVisible(false)
-                setTimeout(() => {
-                    router.push('/')
-                    setTimeout(() => {
-                        fetchMe()
-                    }, 400)
-                }, 600)
-            }, 1600)
+                router.push('/')
+            }, navigationDurationMiliseconds)
         }
     }
 
     const changeForm = async () => {
         setPageVisible(false)
-        setTimeout(() => {
-            router.push('/registration')
-        }, 600)
+        setTimeout(() => { router.push('/registration')}, navigationDurationMiliseconds)
     }
 
     return(

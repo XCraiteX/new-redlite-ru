@@ -1,27 +1,36 @@
-import { api } from '@/api/api'
-import { create } from 'zustand'
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+import { MeScheme } from '@/hooks/useMe';
+import { UserScheme } from '@/schemas/response/auth/auth.scheme';
 
 interface MeState {
-  login: string | undefined | null
-  authorized: boolean | undefined
-  developer: boolean
-  created: string
-  fetch: () => void
+  login: string | undefined;
+  authorized: boolean | undefined;
+  developer: boolean;
+  created: string;
+  setMe: (data: UserScheme) => void;
+  // fetch: () => Promise<void>;
 }
 
-export const useMeStore = create<MeState>()(set => ({
-    login: undefined,
-    authorized: undefined,
-    developer: false,
-    created: '',
-    fetch: async () => { 
-        const data = await api.me()
-
-        if (data.status == 'OK'){
-          return set(state => ({...state, authorized: true, login: data.user.login, developer: data.user.developer, created: data.user.created}))
-        } else {
-          return set(state => ({...state, authorized: false}))
-        }
+export const useMeStore = create<MeState>()(
+  persist(
+    (set) => ({
+      login: undefined,
+      authorized: undefined,
+      developer: false,
+      created: '',
+      setMe: (user) => {
+        set(() => ({
+          authorized: true,
+          login: user.login,
+          created: user.created,
+          developer: user.developer
+        }))
+      }
     }
-  })
-)
+  ),
+    {
+      name: 'me-storage', 
+    }
+  )
+);

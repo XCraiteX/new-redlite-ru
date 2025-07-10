@@ -1,16 +1,31 @@
 'use client'
+
+// STORES
 import { GlobalStores } from "@/stores/global"
+
+// HOOKS
+import { useMe } from "@/hooks/useMe";
 import { useRouter } from "next/navigation"
 import { useEffect } from "react";
 
+
 export default function Profile() {
-    const { authorized, login, fetch: fetchMe } = GlobalStores.me()
+
+    const { authorized, login, setMe } = GlobalStores.me()
+    
     const router = useRouter()
 
+    const { data } = useMe()
+
+    // Обновление кэша
     useEffect(() => {
-        if (authorized == undefined) {
-            fetchMe()
-        } else if (authorized) {
+        if(data) setMe(data)
+    }, [data])
+
+    
+    // Проверка перенаправлений
+    useEffect(() => {
+        if (authorized) {
             router.push(`/profile/${login}`)
         } else {
             router.push('/login')

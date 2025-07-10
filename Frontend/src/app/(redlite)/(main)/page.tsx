@@ -1,9 +1,11 @@
 'use client'
-import { useEffect } from "react";
-import { AnimatePresence, motion } from "motion/react";
-import { GlobalStores } from "@/stores/global";
-import { useAnimationStore } from "@/stores/animation";
 
+// MODULES & CSS
+import "@/css/adaptation/main.css"
+import { AnimatePresence, motion } from "motion/react";
+import { navigationDurationSeconds } from "@/animation/controls";
+
+// COMPONENTS
 import Projects from "@/components/pages/main/home/sections/Projects";
 import Main from "@/components/pages/main/home/sections/Main";
 import About from "@/components/pages/main/home/sections/About";
@@ -12,18 +14,22 @@ import Socials from "@/components/pages/main/home/sections/Socials";
 import Alert from "@/components/global/Alert";
 import Codes from "@/components/pages/main/home/sections/Codes";
 
-import "@/css/adaptation/main.css"
+// HOOKS & STORES
+import { useEffect } from "react";
+import { GlobalStores } from "@/stores/global";
+import { useAnimationStore } from "@/stores/animation";
+
 
 export default function Home() {
+  // STORES
   const { data, fetch: fetchCommunity } = GlobalStores.community()
   const { isPageVisible, setPageVisible } = useAnimationStore()
 
-  useEffect(() => {
-    if (!data) fetchCommunity()
-  }, [])
-
+  // Включаем видимость страницы (анимации)
   useEffect(() => {
     setPageVisible(true)
+
+    if (!data) fetchCommunity()
   }, [])
 
   return (
@@ -36,7 +42,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 0 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
+              transition={{ duration: navigationDurationSeconds, ease: "easeOut" }}
               className="flex flex-row w-full"
               id="main-page-container"
             >

@@ -1,37 +1,46 @@
 'use client'
 import "@/css/globals.css";
 import "@/css/header.css";
-import { IoMdSwap } from "react-icons/io";
 
-import { FaUserAstronaut } from "react-icons/fa6";
-import { IoMailUnread } from "react-icons/io5";
-import { RiShieldKeyholeFill } from "react-icons/ri";
+// MODULES
+import { AnimatePresence, motion } from "motion/react";
+import { api } from "@/api/api";
+
+// COMPONENTS
+import Alert from "@/components/global/Alert";
+
+// STORES & SCHEMES
+import { GlobalStores } from "@/stores/global";
+import { AlertScheme } from "@/schemas/global/alert.scheme";
+import { navigationDurationMiliseconds } from "@/animation/controls";
+
+// HOOKS
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { AnimatePresence, motion } from "motion/react";
-import Alert from "@/components/global/Alert";
-import { api } from "@/api/api";
-import { GlobalStores } from "@/stores/global";
-import { AlertScheme } from "@/schemas/global/alert.scheme";
-import { useAnimationStore } from "@/stores/animation";
+// ICONS
+import { IoMdSwap } from "react-icons/io";
+import { FaUserAstronaut } from "react-icons/fa6";
+import { IoMailUnread } from "react-icons/io5";
+import { RiShieldKeyholeFill } from "react-icons/ri";
 
 
 export default function Page() {
 
     const router = useRouter()
-    const { isPageVisible, setPageVisible } = useAnimationStore()
+    const { isPageVisible, setPageVisible } = GlobalStores.animation()
 
+    // Данные форм
     const [login, setLogin] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    // Уведомления
     const [alertData, setAlertData] = useState<null | AlertScheme>()
     const [active, setActive] = useState(false)
 
-    useEffect(() => {
-        setPageVisible(true)
-    }, [])
+    // Включаем страницу по умолчанию
+    useEffect(() => { setPageVisible(true) }, [])
 
     const registration = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -47,15 +56,13 @@ export default function Page() {
                 setTimeout(() => {
                     router.push('/login')
                 }, 600)
-            }, 1600)
+            }, 800)
         }
     }
 
     const changeForm = async () => {
         setPageVisible(false)
-        setTimeout(() => {
-            router.push('/login')
-        }, 600)
+        setTimeout(() => { router.push('/login')}, navigationDurationMiliseconds)
     }
 
     return(

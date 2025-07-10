@@ -1,78 +1,69 @@
 'use client'
 import "@/css/adaptation/header.css"
 
+// MODULES & HOOKS
+import Link from "next/link"
 import { motion, AnimatePresence } from "motion/react"
-import { GlobalStores } from "@/stores/global"
 import { useRouter, usePathname } from "next/navigation"
-import { useAnimationStore } from "@/stores/animation"
+import { useEffect } from "react"
+import { useMe } from "@/hooks/useMe"
 
+// COMPONENTS 
+import UserHead from "./UserHead"
+import NavLink from "@/ui/nav.link"
 import Divider from "@/components/global/Divider"
 
+// STORES & UTILS
+import { GlobalStores } from "@/stores/global"
+import { useAnimationStore } from "@/stores/animation"
+import { handleHash } from "@/utils/handle.hash"
+import { handleNavigation } from "@/utils/animated.nav"
+
+// ICONS
 import { AiFillHome } from "react-icons/ai"
 import { FaProjectDiagram, FaRegUserCircle } from "react-icons/fa"
 import { FaUserAstronaut } from "react-icons/fa6"
 import { GiStarSattelites } from "react-icons/gi"
 import { MdMarkEmailUnread } from "react-icons/md"
 import { RiHeart2Fill, RiCoupon2Fill } from "react-icons/ri"
-import { useEffect } from "react"
-import Link from "next/link"
+
 
 export default function Header() {
 
-    const router = useRouter()
-    const pathname = usePathname()
+    // STORES
+    const { login, authorized, setMe } = GlobalStores.me();
+    const { setPageVisible, isPageVisible } = useAnimationStore();
+    
+    // HOOKS
+    const router = useRouter();
+    const pathname = usePathname();
+    const { data, isLoading } = useMe();
 
-    const { authorized, login, fetch: fetchMe } = GlobalStores.me()
-    const { setPageVisible, isPageVisible } = useAnimationStore()
 
     useEffect(() => {
-        if (authorized === undefined) {
-            fetchMe()
+        if (data){
+            setMe(data)
         }
-    }, [authorized, fetchMe])
+    }, [data])
+    
 
-
+    // Проверка хэша при загрузке страницы
     useEffect(() => {
-        const handleHash = () => {
-            const hash = window.location.hash;
-            if (hash) {
-                const element = document.getElementById(hash.substring(1));
-                if (element) {
-                    element.scrollIntoView( { behavior: "auto" } );
-                }
-            }
-        };
-
+        handleHash()
         setTimeout(handleHash, 100);
     }, [pathname]); 
 
-    const handleNavigation = (path: string) => {
-        const getBasePath = (p: string): string => {
-            const hashIndex = p.indexOf('#');
-            return hashIndex === -1 ? p : p.substring(0, hashIndex);
-        };
 
-        const currentBasePath = getBasePath(pathname);
-        const targetBasePath = getBasePath(path);
-
-        if (currentBasePath !== targetBasePath) { 
-            setPageVisible(false);
-
-            setTimeout(() => {
-                router.push(path);
-            }, 600);
-        } else {
-            router.push(path);
-        }
+    // Анимированный переход
+    const handleLink = ( path: string ) => {
+        handleNavigation({ path: path, router: router, pathname: pathname, onReady:() => setPageVisible(false) });
     }
 
     return (
         <AnimatePresence mode="wait">
             {isPageVisible && (
                 <motion.header 
-                    initial={{ y: -100 }}
-                    animate={{ y: 0 }}
-                    exit={{ y: -100 }}
+                    initial={{ y: -100 }} animate={{ y: 0 }} exit={{ y: -100 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
                     className="flex gap-2 fixed top-2 left-0 right-0 w-full justify-center items-center text-xl z-100">
 
@@ -82,57 +73,24 @@ export default function Header() {
                     </Link>
 
                     <div className="flex header-links rounded-full items-center bg-[#ff1111]/10 backdrop-blur-[12px] border-1 border-white/10 ">
-                        <button onClick={() => handleNavigation('/#home')} className="flex gap-2 rounded-full shadow-[#ff0000]/50 hover:shadow-[0_0_6px_1px]  hover:bg-[#ff0000]/10 nav-a">
-                            <AiFillHome/>
-                            Главная
-                        </button>
-
-                        <Divider/>
-
-                        <button onClick={() => handleNavigation('/#about')} className="flex gap-2 rounded-full shadow-[#ff0000]/50 hover:shadow-[0_0_6px_1px]  hover:bg-[#ff0000]/10 nav-a">
-                            <RiHeart2Fill/>
-                            О нас
-                        </button>
-
-                        <Divider/>
-
-                        <button onClick={() => handleNavigation('/#projects')} className="flex gap-2 rounded-full shadow-[#ff0000]/50 hover:shadow-[0_0_6px_1px]  hover:bg-[#ff0000]/10 nav-a">
-                            <FaProjectDiagram/>
-                            Проекты
-                        </button>
-
-                        <Divider/>
-
-                        <button onClick={() => handleNavigation('/#codes')} className="flex gap-2 rounded-full shadow-[#ff0000]/50 hover:shadow-[0_0_6px_1px]  hover:bg-[#ff0000]/10 nav-a">
-                            <RiCoupon2Fill/>
-                            Коды
-                        </button>
-
-                        <Divider/>
-
-                        <button onClick={() => handleNavigation('/#contacts')} className="flex gap-2 rounded-full shadow-[#ff0000]/50 hover:shadow-[0_0_6px_1px]  hover:bg-[#ff0000]/10 nav-a">
-                            <MdMarkEmailUnread/>
-                            Контакты
-                        </button>
+                        <NavLink path='/#home' title="Главная" icon={<AiFillHome/>} action={handleLink}/><Divider/>
+                        <NavLink path='/#about' title="О нас" icon={<RiHeart2Fill/>} action={handleLink}/><Divider/>
+                        <NavLink path='/#projects' title="Проекты" icon={<FaProjectDiagram/>} action={handleLink}/><Divider/>
+                        <NavLink path='/#codes' title="Коды" icon={<RiCoupon2Fill/>} action={handleLink}/> <Divider/>
+                        <NavLink path='/#contacts' title="Контакты" icon={<MdMarkEmailUnread/>} action={handleLink}/>
                     </div>
 
                     <div>
-                        {authorized ? (
-                            <button 
-                                onClick={() => handleNavigation(`/profile/${login}`)}
-                                className="border-1 border-white/10 nav-a rounded-full backdrop-blur-[12px] bg-[#ff0000]/10 shadow-[#ff0000]/50 hover:shadow-[0_0_6px_1px] hover:bg-[#ff0000]/16 nav-a gap-2"
-                            >
-                                <FaRegUserCircle/>
-                                <p>{login}</p>
-                            </button>
-                        ) : (
-                            <button 
-                                onClick={() => handleNavigation('/login')}
-                                className="border-1 border-white/10 nav-a rounded-full backdrop-blur-[12px] bg-[#ff0000]/10 shadow-[#ff0000]/50 hover:shadow-[0_0_6px_1px] hover:bg-[#ff0000]/16 nav-a gap-2"
-                            >
-                                <FaUserAstronaut/>
-                                <span id="header_login">Login</span>
-                            </button>
+                        {authorized && (
+                            <UserHead 
+                                action={handleLink}
+                                login_link="/login"
+                                profile_link={`/profile/${login}`}
+                                isAuth={authorized ? true : false}
+                                login={authorized ? login : ''}
+                                logged_icon={<FaRegUserCircle/>}
+                                default_icon={<FaUserAstronaut/>}
+                            />
                         )}
                     </div>
                 </motion.header>
