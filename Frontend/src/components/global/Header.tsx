@@ -81,7 +81,7 @@ export default function Header() {
                     </div>
 
                     <div>
-                        {authorized && (
+                        {
                             <UserHead 
                                 action={handleLink}
                                 login_link="/login"
@@ -91,7 +91,7 @@ export default function Header() {
                                 logged_icon={<FaRegUserCircle/>}
                                 default_icon={<FaUserAstronaut/>}
                             />
-                        )}
+                        }
                     </div>
                 </motion.header>
             )}
