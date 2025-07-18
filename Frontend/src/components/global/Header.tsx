@@ -10,8 +10,8 @@ import { useMe } from "@/hooks/useMe"
 
 // COMPONENTS 
 import UserHead from "./UserHead"
-import NavLink from "@/ui/nav.link"
-import Divider from "@/components/global/Divider"
+import NavLink from "@/ui/nav-link"
+import Divider from "@/ui/divider"
 
 // STORES & UTILS
 import { GlobalStores } from "@/stores/global"
@@ -37,13 +37,11 @@ export default function Header() {
     // HOOKS
     const router = useRouter();
     const pathname = usePathname();
-    const { data, isLoading } = useMe();
+    const { data } = useMe();
 
 
     useEffect(() => {
-        if (data){
-            setMe(data)
-        }
+        if (data) setMe(data)
     }, [data])
     
 

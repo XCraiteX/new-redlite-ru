@@ -1,6 +1,6 @@
 import React from "react"
 
-interface navLinkScheme {
+type navLinkScheme = {
     title: string;
     icon?: React.ReactNode;
     path: string;

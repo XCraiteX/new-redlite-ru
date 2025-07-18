@@ -12,24 +12,27 @@ import { FaUserAstronaut } from "react-icons/fa6"
 import { GiStarSattelites } from "react-icons/gi"
 import { RiHeart2Fill, RiVoiceprintLine } from "react-icons/ri"
 import { RiSettingsFill } from "react-icons/ri";
-import Divider from "@/components/global/Divider"
+import Divider from "@/ui/divider"
 import { useEffect } from "react"
 import { TbBrandReact } from "react-icons/tb"
 import { IoIosPricetags } from "react-icons/io"
+import { useMe } from "@/hooks/useMe"
 
 export default function Header() {
 
     const router = useRouter()
     const pathname = usePathname()
 
-    const { authorized, login, fetch: fetchMe } = GlobalStores.me()
+    const { authorized, login, setMe } = GlobalStores.me()
     const { setPageVisible, isPageVisible } = useAnimationStore()
 
+    const { data } = useMe()
+
     useEffect(() => {
-        if (authorized === undefined) {
-            fetchMe()
+        if (data){
+            setMe(data)
         }
-    }, [authorized, fetchMe])
+    }, [data])
 
     // const [isVisible, setIsVisible] = useState(true)
 
