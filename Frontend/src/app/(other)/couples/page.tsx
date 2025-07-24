@@ -1,5 +1,6 @@
 import Header from '@/components/global/Header'
 import Banner from '@/components/pages/other/couples/Banner'
+import StoppedBanner from '@/components/pages/other/couples/StoppedBanner'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -22,12 +23,13 @@ export default function Home() {
 						start_time='2024-09-14T21:25:00'
 					/>
 
-					<Banner
+					<StoppedBanner
 						name2='Devil'
 						name1='Крайтекс'
 						img2='/images/couples/devil.jpg'
 						img1='/images/couples/xcraitex.jpg'
 						start_time='2025-05-18T05:25:25'
+						end_time='2025-07-24T03:50:00'
 					/>
 
 					<Banner
