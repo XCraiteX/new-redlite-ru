@@ -23,14 +23,23 @@ export default function Home() {
 						start_time='2024-09-14T21:25:00'
 					/>
 
-					<StoppedBanner
+					<Banner
+						name2='Кейсу'
+						name1='Крайтекс'
+						img2='/images/couples/keisu.png'
+						img1='/images/couples/xcraitex2.png'
+						start_time='2025-07-29T08:21:59'
+					/>
+
+
+					{/* <StoppedBanner
 						name2='Devil'
 						name1='Крайтекс'
 						img2='/images/couples/devil.jpg'
 						img1='/images/couples/xcraitex.jpg'
 						start_time='2025-05-18T05:25:25'
 						end_time='2025-07-24T03:50:00'
-					/>
+					/> */}
 
 					<Banner
 						name2='Ангелина'
