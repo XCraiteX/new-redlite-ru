@@ -26,8 +26,8 @@ export default function Home() {
 					<Banner
 						name2='Кейсу'
 						name1='Крайтекс'
-						img2='/images/couples/keisu.png'
-						img1='/images/couples/xcraitex2.png'
+						img2='/images/couples/keisu.jpg'
+						img1='/images/couples/xcraitex2.jpg'
 						start_time='2025-07-29T08:21:59'
 					/>
 
