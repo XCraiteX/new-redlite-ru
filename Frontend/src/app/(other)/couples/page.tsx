@@ -1,6 +1,4 @@
-import Header from '@/components/global/Header'
 import Banner from '@/components/pages/other/couples/Banner'
-import StoppedBanner from '@/components/pages/other/couples/StoppedBanner'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
