@@ -5,9 +5,10 @@ from data.db import db_session
 from data.models import LicenseTable, UsersTable
 from data.schemas import LicenseInitScheme
 
-from utils.settings import API_URL_PREFIX
+from config import API_URL_PREFIX
 
 router = APIRouter()
+
 
 @router.get(API_URL_PREFIX + 'orbit/license/check/{hwid}')
 async def app_check_orbit_license(hwid: str):

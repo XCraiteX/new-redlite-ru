@@ -2,7 +2,7 @@ from fastapi.routing import APIRouter
 from bs4 import BeautifulSoup
 import aiohttp
 
-from utils.settings import *
+from config import *
 
 router = APIRouter()
 

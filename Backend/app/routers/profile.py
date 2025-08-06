@@ -1,7 +1,7 @@
 from fastapi.routing import APIRouter
 from sqlalchemy import select
 
-from utils.settings import API_URL_PREFIX
+from config import API_URL_PREFIX
 from data.db import db_session
 from data.models import UsersTable
 

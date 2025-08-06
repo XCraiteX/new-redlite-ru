@@ -21,6 +21,15 @@ class UsersTable(Base):
 class LicenseTable(Base):
     __tablename__ = 'license'
 
-    id: Mapped[Integer] = mapped_column(Integer, primary_key=True)
+    id: Mapped[Integer] = mapped_column(Integer, primary_key=True, autoincrement=True)
     orbit: Mapped[Boolean] = mapped_column(Boolean, default=False)
     orbit_hwid: Mapped[String] = mapped_column(String, default='')
+
+
+class CodesTable(Base):
+    __tablename__ = 'codes'
+
+    id: Mapped[Integer] = mapped_column(Integer, primary_key=True)
+    code: Mapped[String] = mapped_column(String, unique=True)
+    reward: Mapped[String] = mapped_column(String)
+    activated: Mapped[Boolean] = mapped_column(Boolean, default=False)

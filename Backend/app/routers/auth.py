@@ -7,11 +7,11 @@ from data.schemas import RegistrationProps, LoginProps
 from data.models import UsersTable, LicenseTable
 from data.db import db_session
 
-from services.hashing import hash_string, compare_passwords
+from lib.hashing import hash_string, compare_passwords
 from services.accounts import check_registration, check_session_key
-from services.session import generate_session_key
+from services.session import generate_session_key, get_session_key
 
-from utils.settings import API_URL_PREFIX
+from config import API_URL_PREFIX
 
 router = APIRouter()
 
@@ -19,10 +19,7 @@ router = APIRouter()
 @router.get(API_URL_PREFIX + 'me')
 async def app_auth_me(request: Request, response: Response):
     
-    session_key = request.cookies.get('session_key')
-
-    if session_key == "" or session_key == None:
-        session_key = request.headers.get('Authorization')
+    session_key = await get_session_key(request)
 
     if not session_key:
         raise HTTPException(status_code=401)

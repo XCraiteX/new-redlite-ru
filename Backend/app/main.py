@@ -6,8 +6,9 @@ from routers.auth import router as auth_router
 from routers.community import router as community_router
 from routers.profile import router as profile_router
 from routers.license import router as license_router
+from routers.codes import router as codes_router
 
-from utils.settings import API_URL_PREFIX
+from config import API_URL_PREFIX
 from data.db import create_tables
 
 app = FastAPI()
@@ -29,6 +30,8 @@ app.include_router(auth_router)
 app.include_router(community_router)
 app.include_router(profile_router)
 app.include_router(license_router)
+app.include_router(codes_router)
+
 
 @app.get(API_URL_PREFIX)
 async def app_api():

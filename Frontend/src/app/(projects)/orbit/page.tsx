@@ -14,6 +14,7 @@ import Main from "@/components/pages/projects/orbit/sections/Main";
 import About from "@/components/pages/projects/orbit/sections/About";
 import Alert from "@/components/global/Alert";
 import Functions from "@/components/pages/projects/orbit/sections/Functions";
+import Settings from "@/components/pages/projects/orbit/sections/Settings";
 
 
 export default function Home() {
@@ -44,6 +45,7 @@ export default function Home() {
               <Main/>
               <About/>
               <Functions/>
+              <Settings/>
             </motion.div>
           )}
         </AnimatePresence>
