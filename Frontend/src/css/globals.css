@@ -57,6 +57,10 @@ body {
   transform: translateX(4px);
 }
 
+.cut {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+}
+
 
 
 /* ADAPTATION */

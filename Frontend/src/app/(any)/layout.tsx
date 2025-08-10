@@ -1,0 +1,29 @@
+import type { Metadata } from "next";
+
+// CSS
+import "@/css/header.css";
+import "@/css/main/button.css";
+import "@/css/main/style.css";
+
+// COMPONENTS
+import Background from "@/components/global/Background";
+
+
+export const metadata: Metadata = {
+  title: "REDLITE Clan x LITE.NET",
+  icons: 'favicon.ico',
+  description: "REDLITE - клан, который готов менять мир. Создадим светлое будущее вместе!",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+      <>
+        <Background link="/videos/background.mp4" opacity={32}/>
+        {children}
+      </>
+  );
+}
