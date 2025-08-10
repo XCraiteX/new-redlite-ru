@@ -22,7 +22,7 @@ export default function Select({ placeholder, options, onValueSet }: select){
                 </svg>
             </div>
             <div className="relative w-full">
-                { isOpen && <div className="absolute bg-black w-full text-lg flex flex-col">
+                { isOpen && <div className="absolute bg-black rounded-sm w-full text-lg flex flex-col">
                     { options.map((option) => (
                         <span className="hover:bg-white/10 py-1 px-4 cursor-pointer"
                             onClick={() => {

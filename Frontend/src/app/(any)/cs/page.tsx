@@ -18,8 +18,8 @@ export default function Home(){
 
         const response = await api.send_message(name, reason, details)
 
-        if (response.status == 200){
-            setStatus(response.data.detail)
+        if (response.status == 'OK'){
+            setStatus(response.detail)
         }
     }
 

@@ -15,7 +15,7 @@ export namespace api{
 
     export const send_message = async (name: string, reason: string, details: string) => {
 
-        const message = `Жалоба на аккаунт:\n\n👤 Имя: ${name}\n🔖 Причина: ${reason}\n✉️ Описание\n${details}`
+        const message = `Жалоба на аккаунт:\n👤 Имя: ${name}\n🔖 Причина: ${reason}\n✉️ Описание\n${details}`
 
         const response = await axios.post('https://redlite.ru/skylite/api/msg', 
             { user: 883790019, message: message }, { withCredentials: true })
