@@ -4,9 +4,9 @@
 ## Stack
 - **Langs** - Python, TypeScript, Html, Css
 
-- **Data** - PostgreSQL, asyncpg, sqlalchemy
+- **Data** - PostgreSQL, asyncpg, sqlalchemy, zustand
 
-- **Frontend** - Next, React, Tailwind, Shadcn
+- **Frontend** - Next, React, Tailwind, shadcn
 
 - **API** - FastAPI, axios, pydantic, react-query
 
